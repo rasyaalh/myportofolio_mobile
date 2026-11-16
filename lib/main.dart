@@ -11,13 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyPortfolio',
+      title: 'MyPortfolio Mobile',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-        ).copyWith(
-          secondary: Colors.amber[700],
+          seedColor: const Color(0xFF1E3A8A),
+          brightness: Brightness.light,
         ),
+        scaffoldBackgroundColor: const Color(0xFFEEF5FF),
         useMaterial3: true,
       ),
       home: MyHomePage(),
