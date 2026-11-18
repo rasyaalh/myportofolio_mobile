@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/widgets/project_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -14,7 +16,7 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("Lihat Education", Icons.school_rounded, const Color(0xFF0F766E)),
     ItemHomepage("Lihat Certification", Icons.verified_rounded, const Color(0xFF6D28D9)),
     ItemHomepage("Lihat Contact", Icons.contact_mail_rounded, const Color(0xFF0369A1)),
-    ItemHomepage("Tambah Item", Icons.add_circle_rounded, const Color(0xFF15803D)),
+    ItemHomepage("Tambah Proyek", Icons.add_circle_rounded, const Color(0xFF15803D)),
     ItemHomepage("Logout", Icons.logout_rounded, const Color(0xFFDC2626)),
   ];
 
@@ -39,6 +41,7 @@ class MyHomePage extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFF1E3A8A),
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -46,6 +49,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -54,7 +58,6 @@ class MyHomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Hero Banner Profil
                 Container(
                   padding: const EdgeInsets.all(18.0),
                   decoration: BoxDecoration(
@@ -114,8 +117,6 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
-                // Baris 3 InfoCard (NPM, Name, Class)
                 Row(
                   children: [
                     Expanded(
@@ -158,8 +159,6 @@ class MyHomePage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 22.0),
-
-                // Header Bagian Menu
                 const Text(
                   'Selamat datang di MyPortfolio Mobile!',
                   textAlign: TextAlign.center,
@@ -179,8 +178,6 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
-                // GridView Tombol Aksi
                 GridView.count(
                   primary: false,
                   physics: const NeverScrollableScrollPhysics(),
@@ -262,93 +259,6 @@ class InfoCard extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ItemHomepage {
-  final String name;
-  final IconData icon;
-  final Color color;
-
-  ItemHomepage(this.name, this.icon, this.color);
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      elevation: 3.0,
-      shadowColor: item.color.withValues(alpha: 0.4),
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: const Color(0xFF0F172A),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                content: Row(
-                  children: [
-                    Icon(item.icon, color: Colors.white, size: 20),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        "Kamu telah menekan tombol ${item.name}!",
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(6),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(7),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    item.icon,
-                    color: Colors.white,
-                    size: 22.0,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 11.5,
-                    height: 1.15,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),
