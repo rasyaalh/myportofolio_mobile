@@ -17,6 +17,7 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("Lihat Certification", Icons.verified_rounded, const Color(0xFF6D28D9)),
     ItemHomepage("Lihat Contact", Icons.contact_mail_rounded, const Color(0xFF0369A1)),
     ItemHomepage("Tambah Proyek", Icons.add_circle_rounded, const Color(0xFF15803D)),
+    ItemHomepage("Tambah Experience", Icons.post_add_rounded, const Color(0xFFBE185D)),
     ItemHomepage("Logout", Icons.logout_rounded, const Color(0xFFDC2626)),
   ];
 
