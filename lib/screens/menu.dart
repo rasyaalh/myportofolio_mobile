@@ -1,34 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
 
   final String npm = "2506534176";
   final String nama = "Rasya Al Hawari";
   final String kelas = "PBP D";
 
-  final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Experience", Icons.work_rounded, const Color(0xFF1D4ED8)),
-    ItemHomepage("Lihat Achievement", Icons.emoji_events_rounded, const Color(0xFFD97706)),
-    ItemHomepage("Lihat Education", Icons.school_rounded, const Color(0xFF0F766E)),
-    ItemHomepage("Lihat Certification", Icons.verified_rounded, const Color(0xFF6D28D9)),
-    ItemHomepage("Lihat Contact", Icons.contact_mail_rounded, const Color(0xFF0369A1)),
-    ItemHomepage("Tambah Proyek", Icons.add_circle_rounded, const Color(0xFF15803D)),
-    ItemHomepage("Tambah Experience", Icons.post_add_rounded, const Color(0xFFBE185D)),
-    ItemHomepage("Logout", Icons.logout_rounded, const Color(0xFFDC2626)),
-  ];
+  List<ItemHomepage> _buildItems(bool isLoggedIn) {
+    return [
+      ItemHomepage(
+        "Lihat Experience",
+        Icons.work_rounded,
+        const Color(0xFF1D4ED8),
+      ),
+      ItemHomepage(
+        "Lihat Achievement",
+        Icons.emoji_events_rounded,
+        const Color(0xFFD97706),
+      ),
+      ItemHomepage(
+        "Lihat Education",
+        Icons.school_rounded,
+        const Color(0xFF0F766E),
+      ),
+      ItemHomepage(
+        "Lihat Certification",
+        Icons.verified_rounded,
+        const Color(0xFF6D28D9),
+      ),
+      ItemHomepage(
+        "Lihat Contact",
+        Icons.contact_mail_rounded,
+        const Color(0xFF0369A1),
+      ),
+      ItemHomepage(
+        "Tambah Proyek",
+        Icons.add_circle_rounded,
+        const Color(0xFF15803D),
+      ),
+      ItemHomepage(
+        "Tambah Experience",
+        Icons.post_add_rounded,
+        const Color(0xFFBE185D),
+      ),
+      isLoggedIn
+          ? ItemHomepage(
+              "Logout",
+              Icons.logout_rounded,
+              const Color(0xFFDC2626),
+            )
+          : ItemHomepage("Login", Icons.login_rounded, const Color(0xFF0284C7)),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+    final items = _buildItems(isLoggedIn);
+
     return Scaffold(
       appBar: AppBar(
         title: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.dashboard_customize_rounded, color: Colors.white, size: 22),
+            Icon(
+              Icons.dashboard_customize_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
             SizedBox(width: 8),
             Text(
               'MyPortfolio',
@@ -45,9 +90,7 @@ class MyHomePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       drawer: const LeftDrawer(),
@@ -104,9 +147,11 @@ class MyHomePage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            const Text(
-                              'Computer Science • Fasilkom UI',
-                              style: TextStyle(
+                            Text(
+                              isLoggedIn
+                                  ? 'Computer Science • Status: Logged In'
+                                  : 'Computer Science • Fasilkom UI',
+                              style: const TextStyle(
                                 color: Color(0xFFDBEAFE),
                                 fontSize: 13,
                               ),
@@ -173,16 +218,16 @@ class MyHomePage extends StatelessWidget {
                 const Text(
                   'Pilih menu di bawah untuk menjelajahi data portofolio',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Color(0xFF475569),
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Color(0xFF475569)),
                 ),
                 const SizedBox(height: 16.0),
                 GridView.count(
                   primary: false,
                   physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 8,
+                  ),
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   crossAxisCount: 3,
@@ -229,10 +274,7 @@ class InfoCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: const Color(0xFFBFDBFE),
-              width: 1,
-            ),
+            border: Border.all(color: const Color(0xFFBFDBFE), width: 1),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,

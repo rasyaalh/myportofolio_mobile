@@ -117,10 +117,12 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                       ),
                       initialValue: _category,
                       items: _categories
-                          .map((category) => DropdownMenuItem(
-                                value: category,
-                                child: Text(category),
-                              ))
+                          .map(
+                            (category) => DropdownMenuItem(
+                              value: category,
+                              child: Text(category),
+                            ),
+                          )
                           .toList(),
                       onChanged: (String? newValue) {
                         setState(() {
@@ -195,10 +197,13 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: const Text('Proyek berhasil ditambahkan!'),
+                                  title: const Text(
+                                    'Proyek berhasil ditambahkan!',
+                                  ),
                                   content: SingleChildScrollView(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text('Nama Proyek: $_projectName'),
                                         Text('Deskripsi: $_description'),
